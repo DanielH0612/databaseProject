@@ -12,11 +12,6 @@ router.get('/', async function(req, res, next) {
     res.render('hotels', { title: 'Hotels', hotels: hotels })
 });
 
-router.get('/:hotelId', async function(req, res, next) {
-    const hotel = await hotelService.getHotelDetails(req.params.hotelId);
-    res.render('hotelDetails', { hotel: hotel });
-  });
-
 router.post('/', jsonParser, async function(req, res, next) {
     let Name = req.body.Name;
     let Location = req.body.Location;
@@ -27,6 +22,18 @@ router.post('/', jsonParser, async function(req, res, next) {
 router.delete('/', jsonParser, async function(req, res, next) {
     let id = req.body.id;
     await hotelService.deleteHotel(id);
+    res.end()
+});
+
+router.get('/:hotelId', async function(req, res, next) {
+    const hotel = await hotelService.getHotelDetails(req.params.hotelId);
+    console.log('Hotels 2: ' + hotel);
+    res.render('hotelDetails', { hotel: hotel });
+});
+
+router.post('/:hotelId/rate', jsonParser, async function(req, res, next) {
+    let value = req.body.Value;
+    await hotelService.makeARate(1, req.params.hotelId, value);
     res.end()
 });
 

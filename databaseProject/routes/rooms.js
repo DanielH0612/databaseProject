@@ -2,7 +2,7 @@ var express = require('express');
 var router = express. Router();
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
-var RoomService = require("../services/RoomService")
+var RoomService = require("../services/RoomService");
 var db = require("../models");
 var roomService = new RoomService(db);
 
@@ -14,8 +14,8 @@ router.get('/:hotelId', async function(req, res, next) {
 });
 
 router.get('/', async function(req, res, next) {
-    const rooms = await roomService.get();
-    rooms.map(room => room.Users = room.Users.filter(user => user.id == 1).length >0)
+  const rooms = await roomService.get();
+  rooms.map(room => room.Users = room.Users.filter(user => user.id == 1).length >0)
     res.render('rooms', { rooms: rooms });
 });
 

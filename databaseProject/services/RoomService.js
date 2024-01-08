@@ -6,6 +6,7 @@ class RoomService {
         this.Room = db.Room;
         this.User = db.User;
         this.Reservation = db.Reservation;
+        this.Hotel = db.Hotel;
     }
   
   async create(capacity, pricePerDay, hotelId) {
@@ -13,21 +14,25 @@ class RoomService {
             {
                 Capacity: capacity,
                 PricePerDay: pricePerDay,
-                HotelId: hotelId
+                HotelId: hotelId,
+                Hotel: hotel
             }
         )
     }
   
     async get() {
-        return this. Room.findAll({
+    return this.Room.findAll({
             where: {
             },
-            include: {
+            include: [{
                 model: this.User,
                 through: {
                     attributes: ['StartDate', 'EndDate']
                 }
-            }
+            },
+            {
+                model: this.Hotel
+            }]
         })
     }
   
@@ -36,12 +41,15 @@ class RoomService {
             where: {
                 HotelId: hotelId
             },
-            include: {
+            include: [{
                 model: this.User,
                 through: {
                     attributes: ['StartDate', 'EndDate']
                 }
-            }
+            },
+            {
+                model: this.Hotel
+            }]
         })
     }
 
