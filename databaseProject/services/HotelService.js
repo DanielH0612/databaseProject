@@ -25,5 +25,15 @@ class HotelService {
             where: {id: hotelId}
         })
     }
+
+    async getHotelDetails(hotelId) {
+        const hotel =  await this.Hotel.findOne({
+            where: {
+                id: hotelId
+            }
+        });
+        return hotel
+    }
 }
+
 module.exports = HotelService;

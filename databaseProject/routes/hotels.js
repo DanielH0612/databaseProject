@@ -12,6 +12,11 @@ router.get('/', async function(req, res, next) {
     res.render('hotels', { title: 'Hotels', hotels: hotels })
 });
 
+router.get('/:hotelId', async function(req, res, next) {
+    const hotel = await hotelService.getHotelDetails(req.params.hotelId);
+    res.render('hotelDetails', { hotel: hotel });
+  });
+
 router.post('/', jsonParser, async function(req, res, next) {
     let Name = req.body.Name;
     let Location = req.body.Location;
