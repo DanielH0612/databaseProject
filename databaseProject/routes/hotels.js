@@ -14,10 +14,10 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', jsonParser, async function(req, res, next) {
     let Name = req.body.Name;
-    letLocation = req.body.location;
+    let Location = req.body.Location;
     await hotelService.create(Name, Location);
     res.end()
-});
+  });
 
 router.delete('/', jsonParser, async function(req, res, next) {
     let id = req.body.id;
